@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@import url( 'https://fonts.googleapis.com/css?family=Roboto:400,700|Material+Icons');
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+@import '~ngx-toastr/toastr.css';
+
+
+body {
+  margin: 0;
+}
+
+#toast-container > div {
+  opacity:1;
+}
+.toast-error { background-color: #BD362F !important; } .toast-success { background-color: #51A351 !important; }

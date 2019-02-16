@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {PropertyService} from './services/property.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  public property$: Observable<any>;
+  constructor(private _property: PropertyService) {
+    this.property$ = this._property.getAllZooplaProperties().valueChanges();
+  }
 }
