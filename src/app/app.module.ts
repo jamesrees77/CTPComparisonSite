@@ -21,7 +21,7 @@ import {RouterModule} from '@angular/router';
 import {UserService} from './services/user.service';
 import { ToastrModule } from 'ngx-toastr';
 import {StorageService} from './services/storage.service';
-
+import { ChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     AppComponent
@@ -48,6 +48,7 @@ import {StorageService} from './services/storage.service';
     UserModule,
     LayoutsModule,
     MDBBootstrapModule.forRoot(),
+    ChartsModule
   ],
   providers: [
     PropertyService,

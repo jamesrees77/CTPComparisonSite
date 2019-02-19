@@ -4,7 +4,7 @@ import {fromPromise} from 'rxjs/internal-compatibility';
 import {AuthService} from './auth.service';
 import {Observable} from 'rxjs';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {switchMap} from 'rxjs/operators';
+import {flatMap, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {PropertyService} from './property.service';
 
@@ -13,7 +13,7 @@ export class UserService {
   public usersCollection: AngularFirestoreCollection<any>;
   public user$: Observable<any>;
   public user: any;
-
+  public test;
   constructor(private afs: AngularFirestore,
               private _auth: AuthService,
               private afAuth: AngularFireAuth,
@@ -24,21 +24,16 @@ export class UserService {
       switchMap(
         (auth) =>
           (auth)
-            ? this.usersCollection.doc(auth.uid).valueChanges()
+            ? this.afs.doc(`users/${auth.uid}`).valueChanges()
             : of(null)
       ));
-
-    this.user$.subscribe((user) => {
-      this.user = user;
-    });
   }
 
   get userDb() {
-    return this.user;
+      return this.user;
   }
-
-  getUserById() {
-    return this.usersCollection.doc(this._auth.currentUserId);
+  getUserById(id) {
+    return this.usersCollection.doc(id);
   }
 
   likePropertyAndAddToUser(id) {
@@ -69,5 +64,6 @@ export class UserService {
     };
     return fromPromise(this.usersCollection.doc(this._auth.currentUserId).set(item, {merge: true}));
   }
+
 
 }

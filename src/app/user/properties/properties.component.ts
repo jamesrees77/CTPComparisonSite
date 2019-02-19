@@ -20,7 +20,7 @@ export class PropertiesComponent {
   public properties$: Observable<any>;
   constructor(private _property: PropertyService,
               private _user: UserService) {
-    this.properties$ = this._property.getAllZooplaProperties().valueChanges();
+    this.properties$ = this._property.getAllProperties().valueChanges();
   }
 
   likeProperty(id: string) {

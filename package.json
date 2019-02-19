@@ -26,9 +26,11 @@
     "angular-bootstrap-md": "^7.4.0",
     "angularfire2": "^5.1.1",
     "bootstrap": "^4.3.1",
+    "chart.js": "^2.7.3",
     "core-js": "^2.5.4",
     "firebase": "^5.8.2",
     "jquery": "^3.3.1",
+    "ng2-charts": "^1.6.0",
     "ngx-toastr": "^9.1.2",
     "rxjs": "^6.0.0-rc.0",
     "zone.js": "^0.8.24"

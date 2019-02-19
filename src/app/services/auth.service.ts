@@ -16,6 +16,8 @@ export class AuthService {
     this.afAuth.authState.subscribe((auth: any) => {
       this.authState = auth;
     });
+    console.log( this.afAuth.auth)
+    console.log('auth: ', this.authenticated)
   }
 
   get authenticated(): boolean {
@@ -39,6 +41,8 @@ export class AuthService {
         email: user.email,
         profile_image_url: '',
         uid: uid,
+        liked_properties: {},
+        current_location: user.current_location
       };
       return fromPromise(this.usersCollection.doc(uid).set(item, {merge: true}));
   }
@@ -52,6 +56,7 @@ export class AuthService {
         })
       );
   }
+
 
   signInWithEmailAndPassword(user): Observable<any> {
     return fromPromise(

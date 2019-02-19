@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {StorageService} from '../../services/storage.service';
 import {AuthService} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
-import {tap} from 'rxjs/operators';
+import {last, mergeMap, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
 @Component({
@@ -23,14 +23,13 @@ export class ProfileImageUploadComponent {
   uploadProfileImage(file) {
     this._storage.uploadFile(file, `user/${this._auth.currentUserId}/profile`)
       .pipe(
-        tap(() => {
-          this._storage.downloadURL.subscribe(url => {
-            this._user.setProfileImage(url).subscribe();
-          });
-        })
+        last(),
+        mergeMap(() => this._storage.downloadURL),
+        tap(url => this._user.setProfileImage(url))
       )
       .subscribe(
         success => {
+          console.log('Success upload Profile Picture');
           this._router.navigate(['/profile']);
         },
         error => console.log(error)

@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {Auth, Pages} from '../../../environments/routing';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
+import {Observable} from 'rxjs';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'standard-page',
@@ -15,7 +17,7 @@ import {AuthService} from '../../services/auth.service';
           <div class="nav-item" style="font-size: 12px;" [routerLink]="['/' + routes.Auth.signin]" *ngIf="!_auth.authenticated">login</div>
           <div class="nav-item" style="font-size: 12px;" [routerLink]="['/' + routes.Auth.signup]" *ngIf="!_auth.authenticated">signup</div>
         <div class="menu" *ngIf="_auth.authenticated">
-          <mat-icon [matMenuTriggerFor]="menu">person</mat-icon>
+          <div [matMenuTriggerFor]="menu" >TEST </div>
           <mat-menu #menu="matMenu">
             <button mat-menu-item [routerLink]="['/' + routes.Pages.profile]">profile</button>
             <button mat-menu-item (click)="logout()">logout</button>
@@ -29,8 +31,14 @@ import {AuthService} from '../../services/auth.service';
 
 export class StandardPageComponent {
   routes = {Pages, Auth};
+  public user$: Observable<any>;
   constructor(private router: Router,
-              public _auth: AuthService) {
+              public _auth: AuthService,
+              private _user: UserService) {
+    console.log(this._auth.authenticated)
+     // if(this._auth.authenticated) {
+     //   this.user$ = this._user.getUserById(this._auth.currentUserId).valueChanges();
+     // }
   }
   logout() {
     return this._auth.logout()

@@ -4,18 +4,19 @@ import { AngularFireStorage } from 'angularfire2/storage';
 import {AuthService} from './auth.service';
 import { FirebaseApp } from 'angularfire2';
 import {finalize} from 'rxjs/operators';
-
-
+import {AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage';
+import {UploadTaskSnapshot} from '@angular/fire/storage/interfaces';
 
 @Injectable()
 export class StorageService {
-  public downloadURL: Observable<string>;
-  public uploadPercent: Observable<number>;
+  public task: AngularFireUploadTask;
+  public fileRef: AngularFireStorageReference;
+  public uploadPercent$: Observable<number>;
 
   constructor(
     private _auth: AuthService,
     private fb: FirebaseApp,
-    private storage: AngularFireStorage
+    private _storage: AngularFireStorage
   ) {
   }
 
@@ -25,39 +26,24 @@ export class StorageService {
       .toString(36)
       .substring(7);
 
-  private getPercentageChanges = (task) => {
-    return task.percentageChanges();
-  };
 
-  private getDownloadURL = (task) => {
-    return task.downloadURL();
-  };
+  get downloadURL(): Observable<any> {
+    return this.fileRef.getDownloadURL();
+  }
 
-  // public uploadFile(event: any, path: string) {
-  //   const file = event.target ? event.target.files[0] : event; // all files uploaded or allow FileList
-  //   const name = `${this.createRandomString()}-${file.name}`;
-  //   const finalPath = `${path}/${name}`; // this is the format on how we will store files in our storage
-  //   const task = this.storage.upload(finalPath, file);
-  //
-  //   this.uploadPercent = this.getPercentageChanges(task); // get percentage of download
-  //   this.downloadURL = this.getDownloadURL(task); // get uploaded url file
-  //
-  //   return this.getDownloadURL(task).map((downloadURL) => {
-  //     return {name, downloadURL};
-  //   });
-  // }
-
-  uploadFile(event) {
+  /*
+   * Upload file to Storage (https://github.com/angular/angularfire2/blob/master/docs/storage/storage.md)
+   */
+  uploadFile(event: any, path: string, file_name?: string): Observable<UploadTaskSnapshot | undefined> {
     const file = event.target.files[0];
-    const filePath = `${this._auth.currentUserId}/profile_image`;
-    const fileRef = this.storage.ref(filePath);
-    const task = this.storage.upload(filePath, file);
+    // if a new file name is present use it, else generate random string and use original file name
+    const name = (file_name) ? file_name : `${this.createRandomString()}-${file.name}`;
+    const filePath = `${path}/${name}`;
 
-    // observe percentage changes
-    this.uploadPercent = task.percentageChanges();
-    // get notified when the download URL is available
-    task.snapshotChanges().pipe(
-      finalize(() => this.downloadURL = fileRef.getDownloadURL() )
-    ).subscribe();
+    this.task = this._storage.upload(filePath, file);
+    this.fileRef = this._storage.ref(filePath);
+    this.uploadPercent$ = this.task.percentageChanges(); // get percentage of download
+
+    return this.task.snapshotChanges();
   }
 }

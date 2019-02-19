@@ -15,7 +15,7 @@ export class PropertyService {
     return this.propertiesCollection.doc(id);
   }
 
-  getAllZooplaProperties() {
+  getAllProperties() {
     return this.afs.collection('prime_location', ref =>
     ref.where('post_code', '>', '')
     );

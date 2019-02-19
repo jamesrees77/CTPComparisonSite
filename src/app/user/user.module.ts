@@ -3,7 +3,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {PropertiesComponent} from './properties/properties.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {CommonModule} from '@angular/common';
-
+import { ChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     ProfileComponent,
@@ -11,7 +11,8 @@ import {CommonModule} from '@angular/common';
     DashboardComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ChartsModule
   ],
   exports: [
     ProfileComponent,

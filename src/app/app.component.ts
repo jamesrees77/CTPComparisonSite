@@ -9,8 +9,6 @@ import {Observable} from 'rxjs';
 })
 export class AppComponent {
   title = 'app';
-  public property$: Observable<any>;
-  constructor(private _property: PropertyService) {
-    this.property$ = this._property.getAllZooplaProperties().valueChanges();
+  constructor() {
   }
 }
