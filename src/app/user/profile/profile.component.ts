@@ -7,15 +7,17 @@ import {AuthService} from '../../services/auth.service';
 @Component({
   selector: 'app-profile',
   template: `
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3" *ngFor="let property$ of (properties$ | async)">
-          <ng-container *ngIf="property$ | async as property">
-            {{property.property_id}} 
-          </ng-container>
+    <standard-page>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3" *ngFor="let property$ of (properties$ | async)">
+            <ng-container *ngIf="property$ | async as property">
+              {{property.property_id}}
+            </ng-container>
+          </div>
         </div>
       </div>
-    </div>
+    </standard-page>
   `,
 })
 

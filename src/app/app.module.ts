@@ -22,12 +22,17 @@ import {UserService} from './services/user.service';
 import { ToastrModule } from 'ngx-toastr';
 import {StorageService} from './services/storage.service';
 import { ChartsModule } from 'ng2-charts';
+import { AgmCoreModule } from '@agm/core';
+
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
     BrowserModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBkt8-2gfQup54j9xyQCQC8MBX7oPgfUMM'
+    }),
     AngularFireModule.initializeApp(environment.firebaseConfig),  // imports firebase/app needed for everything
     AngularFirestoreModule,                                       // imports firebase/firestore, only needed for database features
     AngularFireAuthModule,                                        // imports firebase/auth, only needed for auth features,
@@ -48,7 +53,7 @@ import { ChartsModule } from 'ng2-charts';
     UserModule,
     LayoutsModule,
     MDBBootstrapModule.forRoot(),
-    ChartsModule
+    ChartsModule,
   ],
   providers: [
     PropertyService,

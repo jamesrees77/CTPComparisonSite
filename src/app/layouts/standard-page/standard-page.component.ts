@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Auth, Pages} from '../../../environments/routing';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
@@ -17,7 +17,7 @@ import {UserService} from '../../services/user.service';
           <div class="nav-item" style="font-size: 12px;" [routerLink]="['/' + routes.Auth.signin]" *ngIf="!_auth.authenticated">login</div>
           <div class="nav-item" style="font-size: 12px;" [routerLink]="['/' + routes.Auth.signup]" *ngIf="!_auth.authenticated">signup</div>
         <div class="menu" *ngIf="_auth.authenticated">
-          <div [matMenuTriggerFor]="menu" >TEST </div>
+          <img [matMenuTriggerFor]="menu" *ngIf="user$ | async as user" [src]="user?.profile_image_url">
           <mat-menu #menu="matMenu">
             <button mat-menu-item [routerLink]="['/' + routes.Pages.profile]">profile</button>
             <button mat-menu-item (click)="logout()">logout</button>
@@ -25,21 +25,26 @@ import {UserService} from '../../services/user.service';
         </div>
       </mat-toolbar-row>
     </mat-toolbar>
+    <ng-content></ng-content>
   `,
   styleUrls: ['./standard-page.component.scss']
 })
 
-export class StandardPageComponent {
+export class StandardPageComponent implements OnInit{
   routes = {Pages, Auth};
   public user$: Observable<any>;
   constructor(private router: Router,
               public _auth: AuthService,
               private _user: UserService) {
-    console.log(this._auth.authenticated)
-     // if(this._auth.authenticated) {
-     //   this.user$ = this._user.getUserById(this._auth.currentUserId).valueChanges();
-     // }
+    console.log(this._auth.authenticated);
   }
+
+  ngOnInit(): void {
+    if(this._auth.currentUser) {
+      this.user$ = this._user.getUserById(this._auth.currentUserId).valueChanges();
+    }
+  }
+
   logout() {
     return this._auth.logout()
       .subscribe(() => this.router.navigate(['/' + Auth.signin]));

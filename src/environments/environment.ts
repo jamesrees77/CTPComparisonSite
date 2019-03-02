@@ -13,6 +13,10 @@ export const environment = {
     storageBucket: 'pythonscraperproject.appspot.com',
     messagingSenderId: '466726826625'
   },
+  algolia: {
+    appId: 'SXINQ9YIRL',
+    apiKey: '3a05968099d5140e9d8e7a57c532e6dc',
+  }
 };
 
 /*

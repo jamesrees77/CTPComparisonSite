@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import * as firebase from 'firebase/app';
 import {fromPromise} from 'rxjs/internal-compatibility';
@@ -7,7 +7,7 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import {Observable} from 'rxjs';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements OnInit {
   public usersCollection: AngularFirestoreCollection<any>;
   public authState: null;
   constructor(private afs: AngularFirestore,
@@ -17,7 +17,10 @@ export class AuthService {
       this.authState = auth;
     });
     console.log( this.afAuth.auth)
-    console.log('auth: ', this.authenticated)
+  }
+
+  ngOnInit() {
+
   }
 
   get authenticated(): boolean {

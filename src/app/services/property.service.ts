@@ -8,7 +8,7 @@ export class PropertyService {
 
 
   constructor(private afs: AngularFirestore) {
-    this.propertiesCollection = afs.collection<any>('prime_location');
+    this.propertiesCollection = afs.collection<any>('properties');
   }
 
   getPropertyById(id) {
@@ -16,7 +16,7 @@ export class PropertyService {
   }
 
   getAllProperties() {
-    return this.afs.collection('prime_location', ref =>
+    return this.afs.collection('properties', ref =>
     ref.where('post_code', '>', '')
     );
   }

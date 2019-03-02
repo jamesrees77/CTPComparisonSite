@@ -12,6 +12,9 @@ import {
 } from '@angular/material';
 import {OnlyLoggedinUsersGuard} from './guards/only-logged-in-users.guard';
 import {ProfileImageUploadComponent} from './profile-image-upload/profile-image-upload.component';
+import {LayoutsModule} from '../layouts/layouts.module';
+import {CommonModule} from '@angular/common';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,9 @@ import {ProfileImageUploadComponent} from './profile-image-upload/profile-image-
   ],
   imports: [
     FormsModule,
+    CommonModule,
+    RouterModule,
+    LayoutsModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
