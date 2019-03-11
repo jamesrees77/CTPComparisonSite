@@ -5,18 +5,19 @@ import {fromPromise} from 'rxjs/internal-compatibility';
 import {flatMap, switchMap} from 'rxjs/operators';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Observable} from 'rxjs';
+import {current} from 'codelyzer/util/syntaxKind';
 
 @Injectable()
 export class AuthService implements OnInit {
   public usersCollection: AngularFirestoreCollection<any>;
   public authState: null;
+
   constructor(private afs: AngularFirestore,
               public afAuth: AngularFireAuth) {
     this.usersCollection = afs.collection<any>('users');
     this.afAuth.authState.subscribe((auth: any) => {
       this.authState = auth;
     });
-    console.log( this.afAuth.auth)
   }
 
   ngOnInit() {

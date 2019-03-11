@@ -8,8 +8,8 @@ import {UserService} from '../../services/user.service';
 @Component({
   selector: 'standard-page',
   template: `
-    <mat-toolbar>
-      <mat-toolbar-row>
+    <mat-toolbar >
+      <mat-toolbar-row >
         <span>Custom Toolbar</span>
         <span class="example-spacer"></span>
         <div class="nav-item" style="font-size: 12px;" [routerLink]="['/' + routes.Pages.properties]">properties</div>

@@ -1,0 +1,34 @@
+:host {
+  .original_site {
+    height: 50px;
+    width: auto;
+  }
+  .title {
+    color: #177777;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 3px;
+  }
+  .price {
+    padding: 7px;
+    background-color: #e9ecef;
+    font-size: 18px;
+  }
+  .col-md-4 {
+    padding-right: 0;
+  }
+  .col-md-8 {
+    padding-left: 0;
+  }
+  .card {
+    margin-top: 25px;
+    border: 0;
+    box-shadow: 0 6px 0 0 rgba(0,0,0,.01), 0 15px 32px 0 rgba(0,0,0,.06);
+    border-radius: 4px;
+  }
+  .property_image {
+    height: 100%;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+}

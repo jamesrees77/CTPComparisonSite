@@ -4,15 +4,20 @@
 
 @import '~ngx-toastr/toastr.css';
 
-html {
-  overflow: hidden;
-  height: 100%;
+html, body {
+  max-width: 100%!important;
+  overflow-x: hidden!important;
 }
+
+mat-sidenav-content {
+  max-width: 100%!important;
+  overflow-x: hidden!important;
+}
+
 body {
-  height: 100%;
-  overflow: auto;
   margin: 0;
-  background-color: #f8f8f8!important;
+  background-color: #f5f5f5!important;
+  z-index:1;
 }
 
 

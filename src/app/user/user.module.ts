@@ -15,11 +15,28 @@ import {
   MatSelectModule
 } from '@angular/material';
 import {AgmCoreModule} from '@agm/core';
+import {PropertyCardComponent} from './property-card/property-card.component';
+import {LikedPropertiesComponent} from './liked-properties/liked-properties.component';
+import {RentMapUkComponent} from './rent-map-uk/rent-map-uk.component';
+import { FusionChartsModule } from 'angular-fusioncharts';
+
+// Import FusionCharts library and chart modules
+import * as FusionCharts from 'fusioncharts';
+import *  as FusionMaps from 'fusioncharts/fusioncharts.maps';
+import * as England from 'fusionmaps/maps/fusioncharts.england';
+
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+
+// Pass the fusioncharts library and chart modules
+FusionChartsModule.fcRoot(FusionCharts, FusionMaps, England, FusionTheme);
 @NgModule({
   declarations: [
     ProfileComponent,
     PropertiesComponent,
     DashboardComponent,
+    PropertyCardComponent,
+    LikedPropertiesComponent,
+    RentMapUkComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -34,12 +51,16 @@ import {AgmCoreModule} from '@agm/core';
     MatInputModule,
     MatRippleModule,
     MatSelectModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule,
+    FusionChartsModule
   ],
   exports: [
     ProfileComponent,
     PropertiesComponent,
     DashboardComponent,
+    PropertyCardComponent,
+    LikedPropertiesComponent,
+    RentMapUkComponent
   ],
 })
 export class UserModule {

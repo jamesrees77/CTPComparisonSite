@@ -4,10 +4,12 @@ import {fromPromise} from 'rxjs/internal-compatibility';
 import {AuthService} from './auth.service';
 import {Observable} from 'rxjs';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {flatMap, switchMap} from 'rxjs/operators';
+import {flatMap, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {PropertyService} from './property.service';
-import * as firebase from 'firebase/app';
+import {FirebaseApp} from '@angular/fire';
+import {forEach} from '@angular/router/src/utils/collection';
+
 @Injectable()
 export class UserService {
   public usersCollection: AngularFirestoreCollection<any>;
@@ -18,21 +20,23 @@ export class UserService {
   constructor(private afs: AngularFirestore,
               private _auth: AuthService,
               private afAuth: AngularFireAuth,
-              private _property: PropertyService) {
+              private _property: PropertyService,
+              private fb: FirebaseApp) {
     this.usersCollection = afs.collection<any>('users');
 
-    this.user$ = this.afAuth.authState.pipe(
-      switchMap(
-        (auth) =>
-          (auth)
-            ? this.afs.doc(`users/${auth.uid}`).valueChanges()
-            : of(null)
-      ));
+    if(this._auth.authenticated) {
+      this.user$ = this.afAuth.authState.pipe(
+        switchMap(
+          (auth) =>
+            (auth)
+              ? this.afs.doc(`users/${auth.uid}`).valueChanges()
+              : of(null)
+        ));
+      this.user$.subscribe((user) => {
+        this.user = user;
+      });
+    }
 
-    this.user$.subscribe((user) => {
-      this.user = user;
-    });
-    console.log('USER SERVICE: ', this.user)
   }
 
   get userDb() {
@@ -59,7 +63,6 @@ export class UserService {
     })
     const docs = [];
     ids.map(id => {
-      console.log(id)
       docs.push(this._property.getPropertyById(id).valueChanges());
     });
     return of(docs);
@@ -70,6 +73,42 @@ export class UserService {
       profile_image_url: url
     };
     return fromPromise(this.usersCollection.doc(this._auth.currentUserId).set(item, {merge: true}));
+  }
+
+  updateUserCurrentLocation(location) {
+    return this.usersCollection.doc(this._auth.currentUserId).set(location, {merge: true});
+  }
+  updateUserProfileData(info: any) {
+    return fromPromise(this.usersCollection.doc(this._auth.currentUserId).set(info, {merge: true}));
+  }
+
+
+  removeUserLikedProperty(property_id: string) {
+
+    const usersDocRef = this.usersCollection.doc(
+      this._auth.currentUserId
+    ).ref;
+
+    return fromPromise(this.fb.firestore().runTransaction(transaction => {
+      return transaction.get(usersDocRef)
+        .then((data: any) => {
+          const user = data.data();
+          const likedProperties = user.liked_properties;
+
+            Object.keys(likedProperties).forEach((key, index) => {
+              if (key === property_id) {
+               delete likedProperties[key]
+              }
+            });
+
+          const item = {
+            liked_properties: likedProperties
+          };
+          transaction.update(usersDocRef, item);
+        });
+    }))
+
+    // .pipe(flatMap(() => this.sendDocumentForSigning(id, 'send_new')));
   }
 
 

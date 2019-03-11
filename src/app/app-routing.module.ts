@@ -8,6 +8,7 @@ import {SigninComponent} from './auth/signin/signin.component';
 import {DashboardComponent} from './user/dashboard/dashboard.component';
 import {PropertiesComponent} from './user/properties/properties.component';
 import {ProfileImageUploadComponent} from './auth/profile-image-upload/profile-image-upload.component';
+import {LikedPropertiesComponent} from './user/liked-properties/liked-properties.component';
 
 const appRoutes: Routes = [
   // AUTH
@@ -19,7 +20,8 @@ const appRoutes: Routes = [
   {path: '', redirectTo: Pages.profile, pathMatch: 'full'},
   {path: Pages.profile, component: ProfileComponent, canActivate: [OnlyLoggedinUsersGuard]},
   {path: Pages.dashboard, component: DashboardComponent, canActivate: [OnlyLoggedinUsersGuard]},
-  {path: Pages.properties, component: PropertiesComponent}
+  {path: Pages.properties, component: PropertiesComponent},
+  {path: Pages.liked_properties, component: LikedPropertiesComponent, canActivate: [OnlyLoggedinUsersGuard]}
 ];
 
 @NgModule({

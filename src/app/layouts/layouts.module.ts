@@ -9,9 +9,12 @@ import {
   MatMenuModule
 } from '@angular/material';
 import {RouterModule} from '@angular/router';
+import{SideNavComponent} from './side-nav/side-nav.component';
+
 @NgModule({
   declarations: [
-    StandardPageComponent
+    StandardPageComponent,
+    SideNavComponent
   ],
   imports: [
     MatSidenavModule,
@@ -28,7 +31,8 @@ import {RouterModule} from '@angular/router';
     MatIconModule,
     MatListModule,
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
+    SideNavComponent
   ]
 })
 export class LayoutsModule {

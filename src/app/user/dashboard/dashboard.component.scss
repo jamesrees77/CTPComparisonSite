@@ -2,4 +2,21 @@
   agm-map {
       height: 600px;
     }
+
+  .table-outline {
+    border: 1px solid #c8ced3;
+  }
+  .card {
+    margin-top: 25px;
+    border: 0;
+    box-shadow: 0 6px 0 0 rgba(0,0,0,.01), 0 15px 32px 0 rgba(0,0,0,.06);
+    border-radius: 4px;
+  }
+  .card-header {
+    background-color: #e9ecef;
+  }
+  .tabs {
+    height:88px;
+  }
+
 }

@@ -8,4 +8,5 @@ export const Pages = {
   profile: 'profile',
   dashboard: 'dashboard',
   properties: 'properties',
+  liked_properties: 'liked-properties'
 };

@@ -9,24 +9,30 @@ import {environment} from '../../../environments/environment';
     <standard-page>
       <div>
         <ais-instantsearch [config]="searchConfig" >
+    
           <mat-toolbar>
             <mat-toolbar-row>
               <span> <ais-search-box [searchAsYouType]=false  (change)="searchChanged($event)" (reset)="searchChanged($event)"></ais-search-box></span>
+              <ais-hits-per-page
+                [items]="[
+                { label: '8 hits per page', value: 8, default: true },
+                { label: '16 hits per page', value: 16}
+                 ]"
+              ></ais-hits-per-page>
+             
             </mat-toolbar-row>
           </mat-toolbar>
-
 
           <ais-hits *ngIf="showResults">
             <ng-template let-hits="hits">
               <div *ngFor="let hit of hits">
 
-                <div class="bio">
-                  hit: {{ hit.post_code }}
-                </div>
+                <property-card [property]="hit"></property-card>
 
               </div>
             </ng-template>
           </ais-hits>
+          <ais-pagination padding="2" *ngIf="showResults"></ais-pagination>
         </ais-instantsearch>
       </div>
     </standard-page>
@@ -57,7 +63,4 @@ export class PropertiesComponent {
     }
   }
 
-  likeProperty(id: string) {
-    return this._user.likePropertyAndAddToUser(id);
-  }
 }
