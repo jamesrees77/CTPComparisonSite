@@ -70,6 +70,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
                         [labels]="lineChartLabels"
                         [options]="lineChartOptions"
                         [legend]="true"
+                        [colors]="chartColors"
                         chartType="line"
                 ></canvas>
               </div>
@@ -129,6 +130,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
                               [labels]="lineChartLabels"
                               [options]="barhartOptions"
                               [legend]="true"
+                              [colors]="chartColors"
                               chartType="horizontalBar"
                       ></canvas>
                   </div>
@@ -153,7 +155,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
                 <div class="card-body">
                   <agm-map [latitude]="lat" [longitude]="lng">
                     <div *ngFor="let radius of test">
-                      <agm-circle [latitude]="radius.lat" [longitude]="radius.lon" [radius]="radius.radius" (mouseDown)="circleClick($event)">test</agm-circle>
+                      <agm-circle [latitude]="radius.lat" [longitude]="radius.lon" [radius]="radius.radius" >test</agm-circle>
                     </div>
                   </agm-map>
                 </div>
@@ -181,10 +183,8 @@ export class DashboardComponent implements OnInit{
   public userComparisonPrice;
 
   locationFormGroup: FormGroup;
-
   lat = 51.454373;
   lng = -2.587519;
-
   public test = [
     {
     radius: null,
@@ -235,8 +235,8 @@ export class DashboardComponent implements OnInit{
 
 
   public lineChartData: Array<any> = [
-    {data: [], label: 'Current average price per location'},
     {data: [], label: 'Comparison to current location'},
+    {data: [], label: 'Current average price per location'},
   ];
 
   public barChartData: Array<any> = [
@@ -264,6 +264,23 @@ export class DashboardComponent implements OnInit{
       }],
     }
   };
+  public chartColors: Array<any> = [
+    { // first color
+      backgroundColor: 'rgb(23,162,184)',
+    },
+    { // first color
+      backgroundColor: 'rgb(220,53,69, 0.4)',
+    },
+
+    // { // second color
+    //   backgroundColor: 'rgba(225,10,24,0.2)',
+    //   borderColor: 'rgba(225,10,24,0.2)',
+    //   pointBackgroundColor: 'rgba(225,10,24,0.2)',
+    //   pointBorderColor: '#fff',
+    //   pointHoverBackgroundColor: '#fff',
+    //   pointHoverBorderColor: 'rgba(225,10,24,0.2)'
+    // }
+    ];
   constructor(private _property: PropertyService,
               private _user: UserService,
               private _auth: AuthService,
@@ -283,14 +300,14 @@ export class DashboardComponent implements OnInit{
   }
 
   getDifference(total, currentPrice, i: number, length: number, currentLength: number, numStudents: number) {
-    this.userComparisonPrice = (currentPrice / currentLength);
+    this.userComparisonPrice = Math.round((currentPrice / currentLength));
     this.currentLocationAmount = currentLength;
     const average = (total / length);
     const difference = this.userComparisonPrice - average;
-    const newAverage = (this.userComparisonPrice + average) / 2;
+    const newAverage = Math.round((this.userComparisonPrice + average) / 2);
     let percentage = Math.round((difference / newAverage) * 100);
     this.barChartData[0].data[i - 1] = length;
-    this.lineChartData[0].data[i - 1] = average;
+    this.lineChartData[1].data[i - 1] = Math.round(average);
 
     if(i <= 7){
       this.test[i].radius = numStudents * 100;
@@ -304,10 +321,10 @@ export class DashboardComponent implements OnInit{
         average:(isNaN(Math.round(average))) ? 'N/A' : Math.round(average),
         percentage: (percentage > 0) ? percentage : 0,
       };
-      this.lineChartData[1].data[i - 1] = item.price;
+      this.lineChartData[0].data[i - 1] = Math.round(item.price);
       this.differences.push(item);
     } else {
-      this.lineChartData[1].data[i - 1] = 0;
+      this.lineChartData[0].data[i - 1] = 0;
     }
   }
 

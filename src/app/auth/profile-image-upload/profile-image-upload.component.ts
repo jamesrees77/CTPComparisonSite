@@ -7,14 +7,22 @@ import {Router} from '@angular/router';
 
 @Component({
   template: `
-    <label for="invoice-upload" class="bold-800 document-upload text-center">
-      <div class="upload_image text-center">upload image</div>
-      <input (change)="uploadProfileImage($event)" type="file" class="input-file" id="invoice-upload">
-    </label>
+    <standard-page>
+      <div class="container text-center" style="margin-top: 100px">
+        <label for="invoice-upload" class="bold-800 document-upload text-center">
+          <img [src]="profile_image" alt="" style="width: 200px; height: auto; margin-bottom: 25px">
+          <div style="cursor: pointer; background-color: #262637; color: white; padding: 8px; border: 1px solid #262637; border-radius: 5px"> Upload Image</div>
+          <input style="display: none" (change)="uploadProfileImage($event)" type="file" class="input-file" id="invoice-upload">
+        </label>
+        <div class="skip_button" style="cursor: pointer" (click)="skip()">skip</div>
+      </div>
+    </standard-page>
   `,
 })
 
 export class ProfileImageUploadComponent {
+
+  profile_image = "/assets/images/profile_icon.png";
   constructor(private _storage: StorageService,
               private _auth: AuthService,
               private _user: UserService,
@@ -25,7 +33,10 @@ export class ProfileImageUploadComponent {
       .pipe(
         last(),
         mergeMap(() => this._storage.downloadURL),
-        tap(url => this._user.setProfileImage(url))
+        tap(url => {
+          this.profile_image = url;
+          this._user.setProfileImage(url)
+        })
       )
       .subscribe(
         success => {
@@ -34,6 +45,12 @@ export class ProfileImageUploadComponent {
         },
         error => console.log(error)
       );
+  }
+
+  skip() {
+    this._user.setProfileImage(this.profile_image).subscribe(
+      () =>this._router.navigate(['/profile'])
+    )
   }
 
 }

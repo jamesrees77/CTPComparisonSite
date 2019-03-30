@@ -8,8 +8,12 @@ import {Pages} from '../../../environments/routing';
   template: `
     <mat-sidenav-container class="example-container">
       <mat-sidenav mode="side" style="width: 200px; background-color: #262637; position: fixed; color: white;" opened >
+        <div class="container text-center">
+          <img src="/assets/images/lendylogowhite.png" alt="" [routerLink]="['/']" style="width: 125px; height: auto; margin-left: auto; margin-right: auto">
+
+        </div>
         <div class="container text-center" *ngIf="user$ | async as user">
-          <img style="width:80px; height: 80px; border-radius: 50%; margin-top: 32px; margin-bottom: 8px" [src]="user.profile_image_url" alt="">
+          <img style="width:80px; height: 80px; border-radius: 50%; margin-bottom: 8px" [src]="user.profile_image_url" alt="">
           <div class="user">
             {{user.first_name}} {{user.last_name}}
           </div>

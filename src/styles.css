@@ -873,6 +873,30 @@ a[class^='ais-'] {
 
 .ais-SearchBox-loadingIcon {
   width: 16px;
-  height: 16px; }
-
+  height: 16px;
+}
+.ais-MenuSelect-select, .ais-NumericSelector-select, .ais-HitsPerPage-select, .ais-ResultsPerPage-select, .ais-SortBy-select {
+  background: none!important;
+  color: white;
+}
+.ais-RangeInput-input--min {
+  background: none;
+  color: white;
+}
+.ais-RangeInput-input--min::placeholder {
+  color: white;
+}
+.ais-RangeInput-input--max{
+  background: none;
+  color: white;
+}
+.ais-RangeInput-input--max::placeholder {
+  color: white;
+}
+.ais-RangeInput-separator {
+  color: white;
+}
+.ais-RangeInput-currency {
+  color: white;
+}
 

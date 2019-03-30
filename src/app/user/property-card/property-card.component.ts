@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {AuthService} from '../../services/auth.service';
-import {flatMap, map} from 'rxjs/operators';
+import {flatMap, map, tap} from 'rxjs/operators';
 import {forEach} from '@angular/router/src/utils/collection';
 import {Auth, Pages} from '../../../environments/routing';
 import {ToastrService} from 'ngx-toastr';
@@ -13,26 +13,31 @@ import {ToastrService} from 'ngx-toastr';
         <div class="row">
           <div class="col-md-4">
             <img class="property_image" style="width: 100%" *ngIf="property.property_photo; else noPhoto" [src]="property?.property_photo" alt="">
-            <ng-template #noPhoto>No photo</ng-template>
+            <ng-template #noPhoto>           
+              <img class="property_image" style="width: 100%" 
+                   src="/assets/images/house-placeholder.jpg" alt="">
+            </ng-template>
           </div>
           <div class="col-md-8">
             <div class="container price">
                 £{{property?.property_rent}}pcm/pp
             </div>
             <div class="container">
-              <div class="title">{{property?.property_address}}, {{property?.post_code}}</div>
-              <div class="description" style="margin-top: 16px;">{{property?.description}}</div>
-              <div class="container" style="padding-bottom: 5px;">
-                <div class="row " style="margin-top: 8px">
-                  <i class="material-icons">local_hotel</i> {{property?.number_of_beds}}
-                  <ng-container *ngIf="property?.is_student_property; else notStudent">
-                    <i class="material-icons">person</i> Student Property
-                  </ng-container>
-                  <ng-template #notStudent>
-                    <i class="material-icons">person</i> Professional Property
-                  </ng-template>
+              <a target="_blank" rel="noopener noreferrer" href="{{property?.url}}">
+                <div class="title">{{property?.property_address}}, {{property?.post_code}}</div>
+                <div class="description" style="margin-top: 16px;">{{property?.description}}</div>
+                <div class="container" style="padding-bottom: 5px;">
+                  <div class="row " style="margin-top: 8px">
+                    <i class="material-icons">local_hotel</i> {{property?.number_of_beds}}
+                    <ng-container *ngIf="property?.is_student_property; else notStudent">
+                      <i class="material-icons">person</i> Student Property
+                    </ng-container>
+                    <ng-template #notStudent>
+                      <i class="material-icons">person</i> Professional Property
+                    </ng-template>
+                  </div>
                 </div>
-              </div>
+              </a>
             </div>
             <hr>
             <div class="container" style="margin-bottom: 8px;">
@@ -53,10 +58,10 @@ import {ToastrService} from 'ngx-toastr';
                 </div>
                 <div class="col-md-2">
                   <div *ngIf="!isLiked" (click)="likeProperty(property?.property_id)">
-                    <img style="width: 30px; height: auto" src="assets/images/like1.png" alt="sing up image">
+                    <img style="width: 30px; height: auto; cursor: pointer" src="assets/images/like1.png" alt="sing up image">
                   </div>
                   <div *ngIf="isLiked" (click)="unlikeProperty(property?.property_id)">
-                    <img style="width: 30px; height: auto" src="assets/images/liked.png" alt="sing up image">
+                    <img style="width: 30px; height: auto; cursor: pointer" src="assets/images/liked.png" alt="sing up image">
                   </div>
                 </div>
               </div>
@@ -93,7 +98,9 @@ export class PropertyCardComponent {
 
   likeProperty(id: string) {
     if(this._auth.authenticated) {
-      return this._user.likePropertyAndAddToUser(id);
+      return this._user.likePropertyAndAddToUser(id).pipe(
+        tap(() => this._toastr.success('Property Liked!'))
+      ).subscribe();
     } else {
       this._toastr.error('You need to be signed in to like this property');
     }

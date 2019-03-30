@@ -10,7 +10,7 @@ import {UserService} from '../../services/user.service';
   template: `
     <mat-toolbar >
       <mat-toolbar-row >
-        <span>Custom Toolbar</span>
+        <img src="/assets/images/lendylogoblue.png" alt="" [routerLink]="['/']" style="width: 125px; height: auto">
         <span class="example-spacer"></span>
         <div class="nav-item" style="font-size: 12px;" [routerLink]="['/' + routes.Pages.properties]">properties</div>
         <div class="nav-item" style="font-size: 12px;" [routerLink]="['/' + routes.Pages.dashboard]">dashboard</div>

@@ -2,4 +2,36 @@
 mat-toolbar {
   background-color: #262637;
 }
+  .card {
+    margin-top: 25px;
+    border: 0;
+    box-shadow: 0 6px 0 0 rgba(0,0,0,.01), 0 15px 32px 0 rgba(0,0,0,.06);
+    border-radius: 4px;
+    padding: 32px;
+  }
+  .sub {
+    font-size: 18px !important;
+    line-height: 26px !important;
+    letter-spacing: normal !important;
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+    color: #484848 !important;
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+  }
+  .hidden {
+    display: none;
+  }
+  .search_button {
+    margin-top: 65px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-radius: 4px;
+    color: white;
+    background-color: #262637;
+  }
+  .background {
+    background: url("https://www.wallsauce.com/uploads/wallsauce-com/images/products/web/anthony-bryant/large/urb_00139.jpg") no-repeat;
+    height: 100vh;
+  }
+
 }

@@ -6,12 +6,12 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: 'AIzaSyCOQYhdvYfxhELR1gPhl0ZACD619wcH00o',
-    authDomain: 'pythonscraperproject.firebaseapp.com',
-    databaseURL: 'https://pythonscraperproject.firebaseio.com',
-    projectId: 'pythonscraperproject',
-    storageBucket: 'pythonscraperproject.appspot.com',
-    messagingSenderId: '466726826625'
+    apiKey: "AIzaSyB2dAlrJJMXQCjskelxPdDeavZFlF80h4c",
+    authDomain: "lendycompare.firebaseapp.com",
+    databaseURL: "https://lendycompare.firebaseio.com",
+    projectId: "lendycompare",
+    storageBucket: "lendycompare.appspot.com",
+    messagingSenderId: "201348072960"
   },
   algolia: {
     appId: 'SXINQ9YIRL',

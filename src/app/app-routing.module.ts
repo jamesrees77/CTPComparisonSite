@@ -17,7 +17,7 @@ const appRoutes: Routes = [
   {path: Auth.signup, component: SignupComponent},
   {path: Auth.profile_image, component: ProfileImageUploadComponent},
   // USER
-  {path: '', redirectTo: Pages.profile, pathMatch: 'full'},
+  {path: '', redirectTo: Pages.properties, pathMatch: 'full'},
   {path: Pages.profile, component: ProfileComponent, canActivate: [OnlyLoggedinUsersGuard]},
   {path: Pages.dashboard, component: DashboardComponent, canActivate: [OnlyLoggedinUsersGuard]},
   {path: Pages.properties, component: PropertiesComponent},
