@@ -42,22 +42,26 @@ import {ToastrService} from 'ngx-toastr';
                   <h4 class="title">Edit Profile</h4>
                 </div>
                 <div class="content">
+                  <!--initiate form-->
                   <form [formGroup]="profileFormGroup">
                     
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
+                          <!-- user form input for changing name-->
                           <label>First Name</label>
                           <input [formControlName]="'first_name'" type="text" class="form-control border-input" placeholder="First Name" >
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
+                          <!-- user form input for changing surname-->
                           <label>Last Name</label>
                           <input [formControlName]="'last_name'"  type="text" class="form-control border-input" placeholder="Last Name">
                         </div>
                       </div>
                     </div>
+                    <!-- user form input for changing address-->
                     <div [formGroupName]="'address'">
                       <div class="row">
                         <div class="col-md-12">
@@ -143,6 +147,7 @@ export class ProfileComponent implements OnInit {
   }
 
   initFormGroup() {
+    // create the reactive form for profile page
     return this._formBuilder.group({
       first_name: '',
       last_name: '',

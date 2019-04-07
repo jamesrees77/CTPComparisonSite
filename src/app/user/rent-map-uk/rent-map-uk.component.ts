@@ -3,6 +3,7 @@ import {Component} from '@angular/core';
 @Component({
   selector: 'rent-map-uk',
   template: `
+    <!--Settings for fusion chart of England -->
     <fusioncharts
       width="500"
       height="550"

@@ -39,6 +39,7 @@ import { AgmCoreModule } from '@agm/core';
     AngularFireStorageModule,                                     // imports firebase/storage only needed for storage features
     AngularFireDatabaseModule,
     BrowserAnimationsModule,
+    // set timing and position of toastr notifications
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-bottom-left',

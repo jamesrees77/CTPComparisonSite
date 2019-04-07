@@ -65,6 +65,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
                 </div><!--/.col--><!--/.col-->
               </div><!--/.row-->
               <div class="chart-wrapper" style="margin-top:40px;">
+                <!--line chart data -->
                 <canvas *ngIf="lineChartData[0].data.length > 7" baseChart class="chart" height="100"
                         [datasets]="lineChartData"
                         [labels]="lineChartLabels"
@@ -125,6 +126,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
                 <div class="card-body">
                   <div style="padding-bottom: 25px;">
                       <hr class="mt-0">
+                    <!-- bar chart data -->
                       <canvas *ngIf="barChartData[0].data.length > 7" baseChart
                               [datasets]="barChartData"
                               [labels]="lineChartLabels"
@@ -272,14 +274,6 @@ export class DashboardComponent implements OnInit{
       backgroundColor: 'rgb(220,53,69, 0.4)',
     },
 
-    // { // second color
-    //   backgroundColor: 'rgba(225,10,24,0.2)',
-    //   borderColor: 'rgba(225,10,24,0.2)',
-    //   pointBackgroundColor: 'rgba(225,10,24,0.2)',
-    //   pointBorderColor: '#fff',
-    //   pointHoverBackgroundColor: '#fff',
-    //   pointHoverBorderColor: 'rgba(225,10,24,0.2)'
-    // }
     ];
   constructor(private _property: PropertyService,
               private _user: UserService,
@@ -302,18 +296,19 @@ export class DashboardComponent implements OnInit{
   getDifference(total, currentPrice, i: number, length: number, currentLength: number, numStudents: number) {
     this.userComparisonPrice = Math.round((currentPrice / currentLength));
     this.currentLocationAmount = currentLength;
-    const average = (total / length);
-    const difference = this.userComparisonPrice - average;
-    const newAverage = Math.round((this.userComparisonPrice + average) / 2);
-    let percentage = Math.round((difference / newAverage) * 100);
-    this.barChartData[0].data[i - 1] = length;
-    this.lineChartData[1].data[i - 1] = Math.round(average);
+    const average = (total / length); // Get Average rent price
+    const difference = this.userComparisonPrice - average; // get the difference
+    const newAverage = Math.round((this.userComparisonPrice + average) / 2); // get average of new location
+    let percentage = Math.round((difference / newAverage) * 100); // get percentage
+    this.barChartData[0].data[i - 1] = length; // set length on bar chart
+    this.lineChartData[1].data[i - 1] = Math.round(average); // set data average to line chart
 
     if(i <= 7){
       this.test[i].radius = numStudents * 100;
     }
 
     if ('BS' + i !== this.myCurrentArea) {
+      // if location is not = to current location then set the following settings to each of the graphs
       const item = {
         location: 'BS' + i,
         price: this.userComparisonPrice - average,
@@ -321,9 +316,11 @@ export class DashboardComponent implements OnInit{
         average:(isNaN(Math.round(average))) ? 'N/A' : Math.round(average),
         percentage: (percentage > 0) ? percentage : 0,
       };
+      // set price on line chart
       this.lineChartData[0].data[i - 1] = Math.round(item.price);
       this.differences.push(item);
     } else {
+      // if it IS current location - set data on line chart to this
       this.lineChartData[0].data[i - 1] = 0;
     }
   }
@@ -332,19 +329,20 @@ export class DashboardComponent implements OnInit{
   getPostCodeRentData() {
     console.log(this.myCurrentArea);
     let currentLength;
+    // map all properties from firestore
     this.propertyBs$ = this.property$.pipe(
       map((properties) =>
         properties.filter((property) => property.post_code === this.myCurrentArea)
       )
     );
-
+    // map all properties from current location
     this.currentPropertLength$ = this.propertyBs$.pipe(
       map((properties) =>
         currentLength = properties.length
       ),
     );
 
-
+    // reduce to get all property rent prices for current location
     this.currentPrice = this.propertyBs$.pipe(
       map((properties) =>
         properties
@@ -352,9 +350,11 @@ export class DashboardComponent implements OnInit{
           .reduce((prev, curr) => prev + curr, 0),
       ),
     );
+    // loop through first locations
     for (let i = 1; i < 9; i ++) {
       let propertyLength;
       let numStudents;
+      // filter by property post_code
       this.propertyBs$ = this.property$.pipe(
         map((properties) =>
           properties.filter((property) => property.post_code === 'BS' + i)
@@ -386,6 +386,7 @@ export class DashboardComponent implements OnInit{
             .reduce((prev, curr) => prev + curr, 0),
         ),
       );
+      // combine all observables and then pass them into new function that handles the math
       combineLatest(
         this.totalPrice,
         this.currentPrice,

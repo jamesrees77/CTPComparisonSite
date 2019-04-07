@@ -39,6 +39,7 @@ export class AuthService implements OnInit {
   }
 
   createUserModelOnSignUp(uid: string, user: any) {
+    // create user model
       const item = {
         first_name: user.first_name,
         last_name: user.last_name,
@@ -48,10 +49,12 @@ export class AuthService implements OnInit {
         liked_properties: {},
         current_location: user.current_location
       };
+      // add to firebase
       return fromPromise(this.usersCollection.doc(uid).set(item, {merge: true}));
   }
 
   createUserWithEmailAndPassword(user: any) {
+    //take users email and password and create them an account within firestore database
     return fromPromise(firebase.auth().createUserWithEmailAndPassword(user.email, user.password))
       .pipe(
         flatMap((auth) => {

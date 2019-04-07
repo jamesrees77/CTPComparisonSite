@@ -18,6 +18,7 @@ const appRoutes: Routes = [
   {path: Auth.profile_image, component: ProfileImageUploadComponent},
   // USER
   {path: '', redirectTo: Pages.properties, pathMatch: 'full'},
+  // Can activate adds the guard to selected routes
   {path: Pages.profile, component: ProfileComponent, canActivate: [OnlyLoggedinUsersGuard]},
   {path: Pages.dashboard, component: DashboardComponent, canActivate: [OnlyLoggedinUsersGuard]},
   {path: Pages.properties, component: PropertiesComponent},

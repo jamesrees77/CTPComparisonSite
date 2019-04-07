@@ -46,12 +46,15 @@ export class UserService {
     return this.usersCollection.doc(id);
   }
 
+  // Takes property id (from firestore) as argument
   likePropertyAndAddToUser(id) {
+    // create item to be added to firestore as an object with the id as the key
     const item = {
       liked_properties: {
         [id]: true
       }
     };
+    //set item to user model on firestore
     return fromPromise(this.usersCollection.doc(this._auth.currentUserId).set(item, {merge: true}));
   }
 
@@ -89,26 +92,28 @@ export class UserService {
       this._auth.currentUserId
     ).ref;
 
+    //return the user model from firestore
     return fromPromise(this.fb.firestore().runTransaction(transaction => {
       return transaction.get(usersDocRef)
         .then((data: any) => {
+          // user holds the full object of the current user
           const user = data.data();
           const likedProperties = user.liked_properties;
-
+        // loops through object keys of like property
             Object.keys(likedProperties).forEach((key, index) => {
+              // if the object key is = to the property id passed in as an argument to delete, then delete it
               if (key === property_id) {
                delete likedProperties[key]
               }
             });
-
+          // then reset like properties as new object with that property removed
           const item = {
             liked_properties: likedProperties
           };
+          //update firestore
           transaction.update(usersDocRef, item);
         });
     }))
-
-    // .pipe(flatMap(() => this.sendDocumentForSigning(id, 'send_new')));
   }
 
 

@@ -20,9 +20,11 @@ import {environment} from '../../../environments/environment';
                     Discover a new place to live in Bristol across all property sites.
                   </div>
                   <div class="label">Where</div>
+                  <!-- Search box and filters-->
                   <ais-search-box [searchAsYouType]=false [placeholder]="'Anywhere'" (submit)="searchChanged($event)" style="margin-bottom: 16px"></ais-search-box>
                   <div class="label" style="margin-bottom: 8px;">Price</div>
                   <div class="container">
+                    <!--property rent slider-->
                     <ais-range-slider
                       attribute="property_rent"
                       [min]="100"
@@ -50,13 +52,6 @@ import {environment} from '../../../environments/environment';
               <div class="col-md-2">
                 <ais-range-input attribute="number_of_beds" [min]="1" [max]="10" currency=""></ais-range-input>
               </div>
-              <!--<ais-sort-by-->
-                <!--[items]="[-->
-                  <!--{ value: 'properties', label: 'Featured' },-->
-                  <!--{ value: 'properties_asc', label: 'Price asc.' },-->
-                  <!--{ value: 'properties_desc', label: 'Price desc.' }-->
-                <!--]"-->
-              <!--&gt;</ais-sort-by>-->
               <ais-hits-per-page 
                 [items]="[
                 { label: '8 hits per page &emsp; ▼', value: 8, default: true },

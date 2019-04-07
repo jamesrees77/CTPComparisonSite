@@ -18,11 +18,13 @@ export class OnlyLoggedinUsersGuard implements CanActivate {
     return this.afAuth.authState.pipe(
       map(auth => {
         console.log('are you logged in?', auth);
+        // if there is no authorisation for user then add toastr notification and redirect to sign in page
         if (isNullOrUndefined(auth)) {
           this.router.navigate(['/signin']);
-          this._toastr.error('You must be logged in to view this page.')
+          this._toastr.error('You must be logged in to view this page.');
           return false;
         } else {
+          // if they are logged in then allow access
           return true;
         }
       })
