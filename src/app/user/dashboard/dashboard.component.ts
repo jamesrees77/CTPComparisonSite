@@ -66,7 +66,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
               </div><!--/.row-->
               <div class="chart-wrapper" style="margin-top:40px;">
                 <!--line chart data -->
-                <canvas *ngIf="lineChartData[0].data.length > 7" baseChart class="chart" height="100"
+                <canvas *ngIf="lineChartData[0].data.length > 15" baseChart class="chart" height="100"
                         [datasets]="lineChartData"
                         [labels]="lineChartLabels"
                         [options]="lineChartOptions"
@@ -127,7 +127,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
                   <div style="padding-bottom: 25px;">
                       <hr class="mt-0">
                     <!-- bar chart data -->
-                      <canvas *ngIf="barChartData[0].data.length > 7" baseChart
+                      <canvas *ngIf="barChartData[0].data.length > 15" baseChart
                               [datasets]="barChartData"
                               [labels]="lineChartLabels"
                               [options]="barhartOptions"
@@ -155,7 +155,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
               <div class="card">
                 <div class="card-header">Map of student properties</div>
                 <div class="card-body">
-                  <agm-map [latitude]="lat" [longitude]="lng">
+                  <agm-map [zoom]='11' [latitude]="lat" [longitude]="lng">
                     <div *ngFor="let radius of test">
                       <agm-circle [latitude]="radius.lat" [longitude]="radius.lon" [radius]="radius.radius" >test</agm-circle>
                     </div>
@@ -244,7 +244,7 @@ export class DashboardComponent implements OnInit{
   public barChartData: Array<any> = [
     {data: [], label: 'Number of available properties'},
   ];
-  public lineChartLabels: Array<any> = ['BS1', 'BS2', 'BS3', 'BS4', 'BS5', 'BS6', 'BS7', 'BS8'];
+  public lineChartLabels: Array<any> = ['BS1', 'BS2', 'BS3', 'BS4', 'BS5', 'BS6', 'BS7', 'BS8', 'BS9', 'BS10', 'BS11', 'BS12', 'BS13', 'BS14', 'BS15', 'BS16'];
   public lineChartOptions: any = {
     responsive: true,
     scales: {
@@ -268,10 +268,10 @@ export class DashboardComponent implements OnInit{
   };
   public chartColors: Array<any> = [
     { // first color
-      backgroundColor: 'rgb(23,162,184)',
+      backgroundColor: 'rgba(23,162,184, 0.5)',
     },
     { // first color
-      backgroundColor: 'rgb(220,53,69, 0.4)',
+      backgroundColor: 'rgba(220,53,69, 0.4)',
     },
 
     ];
@@ -351,7 +351,7 @@ export class DashboardComponent implements OnInit{
       ),
     );
     // loop through first locations
-    for (let i = 1; i < 9; i ++) {
+    for (let i = 1; i < 17; i ++) {
       let propertyLength;
       let numStudents;
       // filter by property post_code

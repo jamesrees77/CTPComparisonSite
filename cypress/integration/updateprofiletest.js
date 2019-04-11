@@ -1,5 +1,11 @@
 describe('Profile', function() {
   it('Edit Profile Data', function() {
+    cy.visit('http://localhost:4200/signin');
+
+    cy.get('input[name=email]').type('james.rees7@hotmail.co.uk');
+    cy.get('input[name=your_pass]').type('testing');
+
+    cy.get('button[type=button]').click();
     cy.visit('http://localhost:4200/profile');
 
     cy.get('.btn-fill').click();

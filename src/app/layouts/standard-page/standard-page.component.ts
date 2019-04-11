@@ -12,7 +12,7 @@ import {UserService} from '../../services/user.service';
       <mat-toolbar-row >
         <img src="/assets/images/lendylogoblue.png" alt="" [routerLink]="['/']" style="width: 125px; height: auto">
         <span class="example-spacer"></span>
-        <div class="nav-item" style="font-size: 12px;" [routerLink]="['/' + routes.Pages.properties]">properties</div>
+        <div class="nav-item" style="font-size: 12px;" [routerLink]="['/' + routes.Pages.properties]">search</div>
         <div class="nav-item" style="font-size: 12px;" [routerLink]="['/' + routes.Pages.dashboard]">dashboard</div>
           <div class="nav-item" style="font-size: 12px;" [routerLink]="['/' + routes.Auth.signin]" *ngIf="!_auth.authenticated">login</div>
           <div class="nav-item" style="font-size: 12px;" [routerLink]="['/' + routes.Auth.signup]" *ngIf="!_auth.authenticated">signup</div>

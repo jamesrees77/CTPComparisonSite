@@ -57,7 +57,7 @@ template: `
 export class SignupComponent implements OnInit {
   signUpFormGroup: FormGroup;
   routes = {Auth};
-  public postCodes =  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10 , 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+  public postCodes =  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10 , 11, 12, 13, 14, 15, 16];
   constructor(private _formBuilder: FormBuilder,
               private _auth: AuthService,
               private router: Router) {}

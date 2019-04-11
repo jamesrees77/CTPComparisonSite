@@ -15,4 +15,7 @@
   mat-sidenav {
     z-index: 99999999999;
   }
+  .mat-drawer-container {
+    position: static!important;
+  }
 }

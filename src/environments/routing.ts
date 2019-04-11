@@ -7,6 +7,6 @@ export const Auth = {
 export const Pages = {
   profile: 'profile',
   dashboard: 'dashboard',
-  properties: 'properties',
+  properties: 'search',
   liked_properties: 'liked-properties'
 };

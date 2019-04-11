@@ -19,7 +19,7 @@ import {PropertyCardComponent} from './property-card/property-card.component';
 import {LikedPropertiesComponent} from './liked-properties/liked-properties.component';
 import {RentMapUkComponent} from './rent-map-uk/rent-map-uk.component';
 import { FusionChartsModule } from 'angular-fusioncharts';
-
+import {RouterModule} from '@angular/router';
 // Import FusionCharts library and chart modules
 import * as FusionCharts from 'fusioncharts';
 import *  as FusionMaps from 'fusioncharts/fusioncharts.maps';
@@ -40,7 +40,7 @@ FusionChartsModule.fcRoot(FusionCharts, FusionMaps, England, FusionTheme);
   ],
   imports: [
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBkt8-2gfQup54j9xyQCQC8MBX7oPgfUMM'
+      apiKey: 'AIzaSyCdsAuPmKNtsSAz-G3trSO9wGuow7XkVEs'
     }),
     CommonModule,
     ChartsModule,
@@ -52,7 +52,8 @@ FusionChartsModule.fcRoot(FusionCharts, FusionMaps, England, FusionTheme);
     MatRippleModule,
     MatSelectModule,
     FormsModule, ReactiveFormsModule,
-    FusionChartsModule
+    FusionChartsModule,
+    RouterModule
   ],
   exports: [
     ProfileComponent,

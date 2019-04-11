@@ -31,7 +31,7 @@ import { AgmCoreModule } from '@agm/core';
   imports: [
     BrowserModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBkt8-2gfQup54j9xyQCQC8MBX7oPgfUMM'
+      apiKey: 'AIzaSyCdsAuPmKNtsSAz-G3trSO9wGuow7XkVEs'
     }),
     AngularFireModule.initializeApp(environment.firebaseConfig),  // imports firebase/app needed for everything
     AngularFirestoreModule,                                       // imports firebase/firestore, only needed for database features
@@ -42,7 +42,7 @@ import { AgmCoreModule } from '@agm/core';
     // set timing and position of toastr notifications
     ToastrModule.forRoot({
       timeOut: 5000,
-      positionClass: 'toast-bottom-left',
+      positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
     MatButtonModule,
